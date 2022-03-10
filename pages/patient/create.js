@@ -30,26 +30,36 @@ const CreatePatient = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="name"> Name : </label>
-      <input
-        id="name"
-        placeholder="enter name"
-        value={newPatient.name}
-        onChange={(e) => {
-          setNewPatient((p) => ({ ...p, name: e.target.value }));
-        }}
-      />
-      <label htmlFor="dob"> Dob : </label>
-      <input
-        id="dob"
-        placeholder="enter DOB"
-        value={newPatient.dob}
-        onChange={(e) => {
-          setNewPatient((p) => ({ ...p, dob: e.target.value }));
-        }}
-      />
-      <button disabled={loading} onClick={createPatient}>
+    <div className="text-white flex flex-col justify-center items-center">
+      <div>
+        <label htmlFor="name"> Name : </label>
+        <input
+          className="mneu"
+          id="name"
+          placeholder="enter name"
+          value={newPatient.name}
+          onChange={(e) => {
+            setNewPatient((p) => ({ ...p, name: e.target.value }));
+          }}
+        />
+      </div>
+      <div>
+        <label htmlFor="dob"> Dob : </label>
+        <input
+          className="mneu text-black"
+          id="dob"
+          placeholder="enter DOB"
+          value={newPatient.dob}
+          onChange={(e) => {
+            setNewPatient((p) => ({ ...p, dob: e.target.value }));
+          }}
+        />
+      </div>
+      <button
+        className="rounded-lg w-full p-4 bg-white text-black"
+        disabled={loading}
+        onClick={createPatient}
+      >
         {loading ? "Loading..." : "Create"}
       </button>
     </div>

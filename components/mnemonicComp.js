@@ -8,6 +8,7 @@ function MnemonicComp() {
   return (
     <div>
       <input
+        className="mneu"
         type="text"
         value={seed}
         onChange={(e) => {
@@ -15,6 +16,7 @@ function MnemonicComp() {
         }}
       />
       <button
+        className="login-btn"
         disabled={!!mnemonic}
         onClick={() => {
           if (!seed) {

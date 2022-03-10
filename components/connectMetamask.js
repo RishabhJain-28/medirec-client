@@ -13,7 +13,9 @@ const ConnectMetamask = () => {
       {currentAccount ? (
         <div> Meta mask connected</div>
       ) : (
-        <button onClick={connectWallet}> Connet to metamask</button>
+        <button className="login-btn" onClick={connectWallet}>
+          Connect to metamask
+        </button>
       )}
     </div>
   );

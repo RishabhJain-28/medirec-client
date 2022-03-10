@@ -11,7 +11,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <SafeHydrate>
       <Web3Provider>
-        <Component {...pageProps} />
+        <div className="body">
+          <Component {...pageProps} />
+        </div>
       </Web3Provider>
     </SafeHydrate>
   );

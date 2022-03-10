@@ -3,7 +3,7 @@ import useAsync from "../../hooks/useAsync";
 import axios from "../../network/axios";
 import { useRouter } from "next/router";
 const Doctor = () => {
-  const [code, setCode] = useState("McKmpfNhAm");
+  const [code, setCode] = useState("");
   const router = useRouter();
   const [record, setRecord] = useState(null);
   const { data, loading, execute, error } = useAsync(
@@ -49,59 +49,70 @@ const Doctor = () => {
     if (newRecData?.data) setRecord(newRecData.data.record);
   }, [newRecData]);
   return (
-    <>
-      <label htmlFor="shortId">Enter Code : </label>
-      <input
-        id="shortId"
-        type="text"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-      />
-      <button
-        disabled={loading}
-        onClick={() => {
-          execute(() => axios.get(`record/getFromLink/${code}`));
-        }}
-      >
-        Get patieent records
-      </button>
+    <div className="bg-white rounded-lg p-4 overflow-hidden">
+      <div className="bg-gray-200 mb-4 p-4 rounded-lg flex flex-col justify-center items-center">
+        <label htmlFor="shortId">Enter Code : </label>
+        <input
+          className="mneu"
+          id="shortId"
+          type="text"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <button
+          className="login-btn"
+          disabled={loading}
+          onClick={() => {
+            execute(() => axios.get(`record/getFromLink/${code}`));
+          }}
+        >
+          Get patient records
+        </button>
+      </div>
+
       {record ? (
-        <div className="bg-red-400">
+        <div className="bg-blue-200 rounded-lg p-2">
           {record.recordData.length === 0 && "0 records found"}
           {record.recordData.map((r, i) => (
             <h1 key={i}>{r}</h1>
           ))}
         </div>
       ) : null}
-      <div>
-        <label htmlFor="newRec">Add new</label>
-        <input
-          className="border-2"
-          type="number"
-          value={newRec}
-          onChange={(e) => setNewRec(e.target.value)}
-        />
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center">
+          <label htmlFor="newRec">Add new</label>
+          <input
+            className="border-2 mneu"
+            type="number"
+            value={newRec}
+            onChange={(e) => setNewRec(e.target.value)}
+          />
+        </div>
+        <button
+          className="login-btn"
+          onClick={() =>
+            executeSave(() =>
+              axios.put(`record/update`, {
+                shortId: code,
+                newData: newRec,
+              })
+            )
+          }
+          disabled={saveLoading}
+        >
+          Save rec
+        </button>
+        <button
+          className="bg-red-600 rounded-xl text-white p-2 w-48"
+          onClick={() =>
+            executeClose(() => axios.delete(`record/link/${code}`))
+          }
+          disabled={closeLoading}
+        >
+          Close session
+        </button>
       </div>
-      <button
-        onClick={() =>
-          executeSave(() =>
-            axios.put(`record/update`, {
-              shortId: code,
-              newData: newRec,
-            })
-          )
-        }
-        disabled={saveLoading}
-      >
-        Save rec
-      </button>
-      <button
-        onClick={() => executeClose(() => axios.delete(`record/link/${code}`))}
-        disabled={closeLoading}
-      >
-        Close session
-      </button>
-    </>
+    </div>
   );
 };
 

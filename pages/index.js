@@ -8,17 +8,23 @@ export default function Home() {
   const { currentAccount } = useWeb3Context();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (currentAccount) {
-  //     router.push("/patient");
-  //   }
-  // }, [currentAccount]);
+  useEffect(() => {
+    console.log("currentAccount", currentAccount);
+    if (currentAccount) {
+      router.push("/patient");
+    }
+  }, [currentAccount]);
 
   return (
-    <div className="bg-red-500 h-5">
-      <MnemonicComp />
-      <br />
-      <ConnectMetamask />
+    <div className="container">
+      <div className="wrapper">
+        <form>
+          <h1>Login</h1>
+          <MnemonicComp />
+          <hr />
+          <ConnectMetamask />
+        </form>
+      </div>
     </div>
   );
 }

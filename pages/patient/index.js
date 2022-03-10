@@ -39,14 +39,14 @@ const Patient = () => {
   if (loading) return <>LOADING</>;
 
   return (
-    <div>
-      pateint:
-      <div>
+    <div className="bg-white p-4 rounded-lg ">
+      <h1>Patient:</h1>
+      <div className="flex flex-col justify-center items-center">
         {patient && patient.rId && (
           <>
             <h1>name :{patient.name}</h1>
             <h1>dob :{patient.dob}</h1>
-            <h1>rId :{patient.rId}</h1>
+            {/* <h1>rId :{patient.rId}</h1> */}
             <GenLink id={patient.rId} />
           </>
         )}
@@ -72,6 +72,7 @@ const GenLink = ({ id }) => {
         </>
       ) : (
         <button
+          className="login-btn"
           disabled={loading}
           onClick={() => {
             execute(() =>
